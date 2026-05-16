@@ -1,0 +1,186 @@
+export const menus = {
+  'bella-pizza': [
+    {
+      id: 'margherita',
+      name: 'Margherita Pizza',
+      description: 'Tomato, mozzarella, fresh basil',
+      price: 14.99,
+      category: 'Pizza',
+    },
+    {
+      id: 'pepperoni',
+      name: 'Pepperoni Feast',
+      description: 'Double pepperoni, mozzarella, oregano',
+      price: 16.99,
+      category: 'Pizza',
+    },
+    {
+      id: 'garlic-bread',
+      name: 'Garlic Bread',
+      description: 'Toasted baguette with garlic butter',
+      price: 6.49,
+      category: 'Sides',
+    },
+    {
+      id: 'tiramisu',
+      name: 'Tiramisu',
+      description: 'Classic Italian coffee dessert',
+      price: 7.99,
+      category: 'Desserts',
+    },
+  ],
+  'smash-burger': [
+    {
+      id: 'classic-smash',
+      name: 'Classic Smash Burger',
+      description: 'Two smashed patties, cheese, pickles, special sauce',
+      price: 12.99,
+      category: 'Burgers',
+    },
+    {
+      id: 'bacon-smash',
+      name: 'Bacon Smash',
+      description: 'Crispy bacon, cheddar, caramelized onions',
+      price: 14.99,
+      category: 'Burgers',
+    },
+    {
+      id: 'truffle-fries',
+      name: 'Truffle Fries',
+      description: 'Crispy fries, truffle oil, parmesan',
+      price: 5.99,
+      category: 'Sides',
+    },
+    {
+      id: 'milkshake',
+      name: 'Vanilla Milkshake',
+      description: 'Thick and creamy hand-spun shake',
+      price: 5.49,
+      category: 'Drinks',
+    },
+  ],
+  'sakura-sushi': [
+    {
+      id: 'salmon-roll',
+      name: 'Salmon Avocado Roll',
+      description: '8 pieces, fresh salmon, avocado, rice',
+      price: 11.99,
+      category: 'Rolls',
+    },
+    {
+      id: 'dragon-roll',
+      name: 'Dragon Roll',
+      description: 'Eel, cucumber, avocado, eel sauce',
+      price: 15.99,
+      category: 'Rolls',
+    },
+    {
+      id: 'miso-soup',
+      name: 'Miso Soup',
+      description: 'Tofu, seaweed, green onion',
+      price: 3.99,
+      category: 'Starters',
+    },
+    {
+      id: 'edamame',
+      name: 'Edamame',
+      description: 'Steamed soybeans with sea salt',
+      price: 4.99,
+      category: 'Starters',
+    },
+  ],
+  'green-bowl': [
+    {
+      id: 'acai-bowl',
+      name: 'Açaí Power Bowl',
+      description: 'Granola, banana, berries, honey',
+      price: 11.49,
+      category: 'Bowls',
+    },
+    {
+      id: 'buddha-bowl',
+      name: 'Buddha Bowl',
+      description: 'Quinoa, roasted veggies, tahini dressing',
+      price: 13.49,
+      category: 'Bowls',
+    },
+    {
+      id: 'green-smoothie',
+      name: 'Green Glow Smoothie',
+      description: 'Spinach, mango, ginger, coconut water',
+      price: 7.99,
+      category: 'Drinks',
+    },
+    {
+      id: 'avocado-toast',
+      name: 'Avocado Toast',
+      description: 'Sourdough, smashed avocado, chili flakes',
+      price: 9.49,
+      category: 'Light bites',
+    },
+  ],
+  'taco-fiesta': [
+    {
+      id: 'street-tacos',
+      name: 'Street Tacos (3)',
+      description: 'Carnitas, onion, cilantro, lime',
+      price: 10.99,
+      category: 'Tacos',
+    },
+    {
+      id: 'burrito-bowl',
+      name: 'Burrito Bowl',
+      description: 'Rice, beans, salsa, guacamole, cheese',
+      price: 12.49,
+      category: 'Bowls',
+    },
+    {
+      id: 'nachos',
+      name: 'Loaded Nachos',
+      description: 'Chips, queso, jalapeños, sour cream',
+      price: 9.99,
+      category: 'Sides',
+    },
+    {
+      id: 'horchata',
+      name: 'Horchata',
+      description: 'Sweet cinnamon rice drink',
+      price: 3.99,
+      category: 'Drinks',
+    },
+  ],
+  'sweet-crumb': [
+    {
+      id: 'chocolate-croissant',
+      name: 'Chocolate Croissant',
+      description: 'Buttery pastry with dark chocolate',
+      price: 4.49,
+      category: 'Pastries',
+    },
+    {
+      id: 'red-velvet',
+      name: 'Red Velvet Cupcake',
+      description: 'Cream cheese frosting',
+      price: 3.99,
+      category: 'Cupcakes',
+    },
+    {
+      id: 'cookie-box',
+      name: 'Cookie Box (6)',
+      description: 'Assorted fresh-baked cookies',
+      price: 8.99,
+      category: 'Cookies',
+    },
+    {
+      id: 'latte',
+      name: 'Caramel Latte',
+      description: 'Espresso, steamed milk, caramel',
+      price: 5.49,
+      category: 'Drinks',
+    },
+  ],
+}
+
+export function getMenuByRestaurantId(restaurantId) {
+  return menus[restaurantId] ?? []
+}

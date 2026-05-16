@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useToggle } from '../hooks/useToggle'
+import { useCart } from '../context/CartContext'
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
+export default function Header({ onHome }) {
+  const { isOpen: menuOpen, toggle: toggleMenu, close: closeMenu } = useToggle(false)
+  const { itemCount, setIsCartOpen } = useCart()
 
   const links = [
     { href: '#restaurants', label: 'Restaurants' },
@@ -9,10 +11,21 @@ export default function Header() {
     { href: '#partner', label: 'Partner with us' },
   ]
 
+  const handleLogoClick = (e) => {
+    if (onHome) {
+      e.preventDefault()
+      onHome()
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/80 backdrop-blur-lg">
       <div className="page-container flex items-center justify-between gap-3 py-3 sm:gap-4 sm:py-3.5 md:py-4">
-        <a href="#" className="group flex min-w-0 items-center gap-2">
+        <a
+          href="/"
+          onClick={handleLogoClick}
+          className="group flex min-w-0 items-center gap-2"
+        >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-brand-500 to-brand-600 text-base shadow-md shadow-brand-500/25 transition-transform duration-300 group-hover:scale-110 sm:h-9 sm:w-9 sm:rounded-xl sm:text-lg">
             🍽️
           </span>
@@ -33,36 +46,53 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 sm:flex sm:gap-3">
+        <div className="flex items-center gap-2">
           <button
             type="button"
-            className="rounded-full px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-stone-100 md:px-4"
+            onClick={() => setIsCartOpen(true)}
+            className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-stone-200 text-lg transition-colors hover:bg-stone-50"
+            aria-label="Open cart"
           >
-            Sign in
+            🛒
+            {itemCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
+                {itemCount}
+              </span>
+            )}
           </button>
+
+          <div className="hidden items-center gap-2 sm:flex sm:gap-3">
+            <button
+              type="button"
+              className="rounded-full px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-stone-100 md:px-4"
+            >
+              Sign in
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="rounded-full bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-md shadow-brand-600/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 md:px-4"
+            >
+              Order now
+            </button>
+          </div>
+
           <button
             type="button"
-            className="rounded-full bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-md shadow-brand-600/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 md:px-4"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-stone-200 md:hidden"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
-            Order now
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
-
-        <button
-          type="button"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-stone-200 md:hidden"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
       </div>
 
       <div
@@ -76,7 +106,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className="min-h-11 rounded-lg px-3 py-2.5 text-sm font-medium text-ink hover:bg-stone-50"
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
             >
               {link.label}
             </a>
@@ -90,9 +120,13 @@ export default function Header() {
             </button>
             <button
               type="button"
+              onClick={() => {
+                closeMenu()
+                setIsCartOpen(true)
+              }}
               className="min-h-11 flex-1 rounded-full bg-brand-600 text-sm font-semibold text-white sm:flex-none sm:px-6"
             >
-              Order now
+              View cart
             </button>
           </div>
         </nav>

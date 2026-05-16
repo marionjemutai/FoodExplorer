@@ -1,32 +1,21 @@
-import { useMemo, useState } from 'react'
-import Header from '../components/Header'
-import Hero from '../components/Hero'
-import CategoryPills from '../components/CategoryPills'
-import RestaurantCard from '../components/RestaurantCard'
-import HowItWorks from '../components/HowItWorks'
-import Footer from '../components/Footer'
-import { categories, restaurants } from '../data/restaurants'
+import Header from '../../shared/components/Header'
+import Hero from '../../shared/components/Hero'
+import CategoryPills from '../../shared/components/CategoryPills'
+import RestaurantCard from '../../shared/components/RestaurantCard'
+import HowItWorks from '../../shared/components/HowItWorks'
+import Footer from '../../shared/components/Footer'
+import CartDrawer from '../../shared/components/CartDrawer'
+import { categories } from './data/restaurants'
+import { useRestaurantFilters } from './hooks/useRestaurantFilters'
 
-export default function HomePage() {
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('all')
-
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    return restaurants.filter((r) => {
-      const matchesCategory = category === 'all' || r.category === category
-      const matchesSearch =
-        !q ||
-        r.name.toLowerCase().includes(q) ||
-        r.cuisine.toLowerCase().includes(q) ||
-        r.category.toLowerCase().includes(q)
-      return matchesCategory && matchesSearch
-    })
-  }, [search, category])
+export default function HomePage({ onViewMenu }) {
+  const { search, setSearch, category, setCategory, filtered, clearFilters } =
+    useRestaurantFilters()
 
   return (
     <div className="min-h-screen bg-surface">
       <Header />
+      <CartDrawer />
       <main>
         <Hero search={search} onSearchChange={setSearch} />
 
@@ -58,6 +47,7 @@ export default function HomePage() {
                     key={restaurant.id}
                     restaurant={restaurant}
                     index={index}
+                    onViewMenu={onViewMenu}
                   />
                 ))}
               </div>
@@ -72,10 +62,7 @@ export default function HomePage() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => {
-                    setSearch('')
-                    setCategory('all')
-                  }}
+                  onClick={clearFilters}
                   className="mt-4 min-h-11 rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
                 >
                   Clear filters

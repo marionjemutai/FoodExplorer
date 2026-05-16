@@ -1,4 +1,4 @@
-export default function RestaurantCard({ restaurant, index }) {
+export default function RestaurantCard({ restaurant, index, onViewMenu }) {
   const stagger = Math.min(index + 1, 6)
 
   return (
@@ -53,6 +53,7 @@ export default function RestaurantCard({ restaurant, index }) {
 
         <button
           type="button"
+          onClick={() => onViewMenu(restaurant.id)}
           className="mt-auto min-h-10 w-full rounded-xl border border-stone-200 py-2 text-xs font-semibold text-ink transition-all duration-300 group-hover:border-brand-500 group-hover:bg-brand-600 group-hover:text-white sm:mt-3 sm:min-h-11 sm:py-2.5 sm:text-sm md:mt-4"
         >
           View menu
