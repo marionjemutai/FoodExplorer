@@ -8,7 +8,7 @@ import CartDrawer from '../../shared/components/CartDrawer'
 import { categories } from './data/restaurants'
 import { useRestaurantFilters } from './hooks/useRestaurantFilters'
 
-export default function HomePage({ onViewMenu }) {
+export default function HomePage() {
   const { search, setSearch, category, setCategory, filtered, clearFilters } =
     useRestaurantFilters()
 
@@ -47,7 +47,6 @@ export default function HomePage({ onViewMenu }) {
                     key={restaurant.id}
                     restaurant={restaurant}
                     index={index}
-                    onViewMenu={onViewMenu}
                   />
                 ))}
               </div>
